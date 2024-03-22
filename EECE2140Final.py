@@ -51,14 +51,21 @@ class dataset:
             tor.append(self.vouts[i]-self.vins[i]) #Adds the voltage drop of this datapoint
         return tor #Returns the list
     def makehistogram(self):
-        plt.hist(self.vdrops(),bins=200)
-        plt.xlabel("Change in voltage (V)")
+        plt.hist(self.vdrops(),bins=100) #Creates a histogram of the voltage drops in the dataset
+        plt.xlabel("Change in voltage (V)") #Labeling and titling the graph in following lines
         plt.ylabel("Frequency (Number)")
         plt.title("Frequency of voltage drops in " + self.name)
         plt.show()
         
 def main():
     data = dataset("acq0001.csv",10,"Plot Name")
+    for i in range(2,10):
+        file = "acq000" + str(i) + ".csv"
+        data.adddata(file)
+    for i in range(10,100):
+        file = "acq00" + str(i) + ".csv"
+        data.adddata(file)
+    data.adddata("acq0100.csv")
     data.makehistogram()
     
 main()
