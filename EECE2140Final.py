@@ -54,13 +54,13 @@ class dataset:
         plt.ylabel("Frequency (Number)")
         plt.title("Frequency of voltage drops in " + self.name)
         plt.show()
-    def histogramdata(self,startbound,endbound,detail): #Very inefficient way to sort data into bins, to be improved in a later version
+    def histogramdata(self,startbound,endbound,detail,data): #Very inefficient way to sort data into bins, to be improved in a later version
         xdata = np.linspace(startbound,endbound,detail) #Every bin for the X value
         raw = [] #A storage of the quantities of values in each bin
         totalsum = 0 #The total sum of all data points looked at
         for i in range(0,len(xdata)): #For each x data
             count = 0 #Number of points that fit
-            for j in self.vouts: #For each voltage out
+            for j in data: #For each voltage out
                 if i is not len(xdata)-1:
                     if j >= xdata[i] and j < xdata[i+1]: #If this value is within this bin
                         count+=1 #Adds one to both the total count and this bin's count
@@ -86,12 +86,55 @@ def main():
         file = "acq00" + str(i) + ".csv"
         data.adddata(file)
     data.adddata("acq0100.csv")
-    data.makehistogram()
+    plt.hist(data.vins,bins=np.linspace(-2,2,100))
+    plt.xlabel("Voltage (V)")
+    plt.ylabel("Frequency (Number)")
+    plt.title("Input voltages of " + data.name)
+    plt.show()
+    
+    plt.hist(data.vouts,bins=np.linspace(-2,2,100))
+    plt.xlabel("Voltage (V)")
+    plt.ylabel("Frequency (Number)")
+    plt.title("Output voltages of " + data.name)
+    plt.show()
+    
+    plt.hist(data.vdrops(),bins=np.linspace(-2,2,100))
+    plt.xlabel("Voltage (V)")
+    plt.ylabel("Frequency (Number)")
+    plt.title("Change in voltages of " + data.name)
+    plt.show()
+    
+    
     xdata = data.ts #The x data of the plot
     ydata = data.vins #The y data of the scatterplot
     popt, pcov = curve_fit(Gauss, xdata, ydata, p0=[1,1]) #Using the curve fit method to get the 
     xplot = np.linspace(min(xdata), max(xdata), 100) #Makes 100 x values within the bounds of xdata for a plot
-    plt.plot(xdata, ydata) #Makes a scatterplot of x and y values
+    plt.scatter(xdata, ydata, s = 0.5) #Makes a scatterplot of x and y values
     plt.plot(xplot, Gauss(xplot, *popt), 'r-') #Plots the gaussian distribution of the data
-
+    plt.xlabel("Time (s)")
+    plt.ylabel("Input voltage (V)")
+    plt.title("Input Voltage vs. Time")
+    plt.show()
+    
+    xdata = data.ts #The x data of the plot
+    ydata = data.vouts #The y data of the scatterplot
+    popt, pcov = curve_fit(Gauss, xdata, ydata, p0=[1,1]) #Using the curve fit method to get the 
+    xplot = np.linspace(min(xdata), max(xdata), 100) #Makes 100 x values within the bounds of xdata for a plot
+    plt.scatter(xdata, ydata, s = 0.5) #Makes a scatterplot of x and y values
+    plt.plot(xplot, Gauss(xplot, *popt), 'r-') #Plots the gaussian distribution of the data
+    plt.xlabel("Time (s)")
+    plt.ylabel("Output voltage (V)")
+    plt.title("Output Voltage vs. Time")
+    plt.show()
+    
+    xdata = data.ts #The x data of the plot
+    ydata = data.vdrops() #The y data of the scatterplot
+    popt, pcov = curve_fit(Gauss, xdata, ydata, p0=[1,1]) #Using the curve fit method to get the 
+    xplot = np.linspace(min(xdata), max(xdata), 100) #Makes 100 x values within the bounds of xdata for a plot
+    plt.scatter(xdata, ydata, s = 0.5) #Makes a scatterplot of x and y values
+    plt.plot(xplot, Gauss(xplot, *popt), 'r-') #Plots the gaussian distribution of the data
+    plt.xlabel("Time (s)")
+    plt.ylabel("Voltage difference (V)")
+    plt.title("Change in Voltage vs. Time")
+    plt.show()
 main()
