@@ -1,4 +1,5 @@
 We are using a collection of data from different pre-amplifier circuits acquired from old tests performed at Northeastern University's Aramaki Lab.
+<p>In order for this code to show the plots according to the data taken, the python/python notebook file needs to be in the same file as all of the data files, in .csv form.<br>
 <p>What we are analyzing:<br>
 <p>Curve fit to the decay times:<br>
 Curving fitting helps you find a formula that matches this pattern. This formula can then be used to predict future decay times or understand the behavior of the system you're studying.
