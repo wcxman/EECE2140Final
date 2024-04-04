@@ -107,10 +107,8 @@ def main():
     
     xdata = data.ts #The x data of the plot
     ydata = data.vins #The y data of the scatterplot
-    popt, pcov = curve_fit(Gauss, xdata, ydata, p0=[1,1]) #Using the curve fit method to get the 
     xplot = np.linspace(min(xdata), max(xdata), 100) #Makes 100 x values within the bounds of xdata for a plot
     plt.scatter(xdata, ydata, s = 0.5) #Makes a scatterplot of x and y values
-    plt.plot(xplot, Gauss(xplot, *popt), 'r-') #Plots the gaussian distribution of the data
     plt.xlabel("Time (s)")
     plt.ylabel("Input voltage (V)")
     plt.title("Input Voltage vs. Time")
@@ -118,10 +116,8 @@ def main():
     
     xdata = data.ts #The x data of the plot
     ydata = data.vouts #The y data of the scatterplot
-    popt, pcov = curve_fit(Gauss, xdata, ydata, p0=[1,1]) #Using the curve fit method to get the 
     xplot = np.linspace(min(xdata), max(xdata), 100) #Makes 100 x values within the bounds of xdata for a plot
     plt.scatter(xdata, ydata, s = 0.5) #Makes a scatterplot of x and y values
-    plt.plot(xplot, Gauss(xplot, *popt), 'r-') #Plots the gaussian distribution of the data
     plt.xlabel("Time (s)")
     plt.ylabel("Output voltage (V)")
     plt.title("Output Voltage vs. Time")
@@ -129,10 +125,8 @@ def main():
     
     xdata = data.ts #The x data of the plot
     ydata = data.vdrops() #The y data of the scatterplot
-    popt, pcov = curve_fit(Gauss, xdata, ydata, p0=[1,1]) #Using the curve fit method to get the 
     xplot = np.linspace(min(xdata), max(xdata), 100) #Makes 100 x values within the bounds of xdata for a plot
     plt.scatter(xdata, ydata, s = 0.5) #Makes a scatterplot of x and y values
-    plt.plot(xplot, Gauss(xplot, *popt), 'r-') #Plots the gaussian distribution of the data
     plt.xlabel("Time (s)")
     plt.ylabel("Voltage difference (V)")
     plt.title("Change in Voltage vs. Time")
